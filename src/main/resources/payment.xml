@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+	<ProfileResp>
+		<CustomerBin></CustomerBin>
+		<CustomerMerchantID></CustomerMerchantID>
+		<CustomerName></CustomerName>
+		<CustomerRefNum></CustomerRefNum>
+		<CustomerProfileAction></CustomerProfileAction>
+		<ProfileProcStatus>9581</ProfileProcStatus>
+		<CustomerProfileMessage>Profile: Cannot Read profile. Profile does not
+			exist for Cust Ref Num: [4049] and MID: [249476].
+		</CustomerProfileMessage>
+		<CustomerAddress1></CustomerAddress1>
+		<CustomerAddress2></CustomerAddress2>
+		<CustomerCity></CustomerCity>
+		<CustomerState></CustomerState>
+		<CustomerZIP></CustomerZIP>
+		<CustomerEmail></CustomerEmail>
+		<CustomerPhone></CustomerPhone>
+		<CustomerProfileOrderOverrideInd></CustomerProfileOrderOverrideInd>
+		<OrderDefaultDescription></OrderDefaultDescription>
+		<OrderDefaultAmount></OrderDefaultAmount>
+		<CustomerAccountType></CustomerAccountType>
+		<CCAccountNum></CCAccountNum>
+		<CCExpireDate></CCExpireDate>
+		<ECPAccountDDA></ECPAccountDDA>
+		<ECPAccountType></ECPAccountType>
+		<ECPAccountRT></ECPAccountRT>
+		<ECPBankPmtDlv></ECPBankPmtDlv>
+		<SwitchSoloStartDate></SwitchSoloStartDate>
+		<SwitchSoloIssueNum></SwitchSoloIssueNum>
+		<RespTime></RespTime>
+	</ProfileResp>
+</Response>
