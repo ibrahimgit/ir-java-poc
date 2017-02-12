@@ -1,7 +1,6 @@
 package com.ir.learning.poc.base64;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
@@ -20,6 +19,16 @@ public class Base64Test {
 		System.out.println("Encoded Messsage: " + encodedMsg.toString());
 		System.out.println("Encoded String Messsage1: " + new String(encodedMsg));
 		System.out.println("Encoded String Messsage2: " + encodedStrMsg);
+		
+		
+		Encoder urlEncoder = Base64.getUrlEncoder();
+		byte[] encodedURLMsg = urlEncoder.encode(STRING_CONSTANT.getBytes("UTF-8"));
+		String encodedURLStrMsg = urlEncoder.encodeToString(STRING_CONSTANT.getBytes("UTF-8"));
+		System.out.println("EncodedURL Messsage: " + encodedURLMsg.toString());
+		System.out.println("EncodedURL String Messsage1: " + new String(encodedURLMsg));
+		System.out.println("EncodedURL String Messsage2: " + encodedURLStrMsg);
+		
+		
 		
 		
 		Decoder decoder = Base64.getDecoder();

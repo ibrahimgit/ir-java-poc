@@ -1,5 +1,7 @@
 package com.ir.learning.poc;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,8 +23,13 @@ public class POC {
 	}
 	
 	
-	public static void main(String[] args) throws CloneNotSupportedException {
+	public static void main(String[] args) throws CloneNotSupportedException, UnsupportedEncodingException {
 		Set<Integer> setInt = new HashSet<>(); //no need to provide parameter type on RHS, Java 7 feature
+		
+		String s = "tets%%&&88";
+		
+		System.out.println(URLEncoder.encode(s, "UTF-8"));
+		
 		
 		call();
 		

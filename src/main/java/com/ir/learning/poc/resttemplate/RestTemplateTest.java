@@ -10,8 +10,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -44,7 +42,8 @@ public class RestTemplateTest {
 	}
 	
 	
-	private static void callHttpClient() throws ClientProtocolException, IOException, ParserConfigurationException, SAXException {
+	private static void callHttpClient() throws ParserConfigurationException, SAXException {
+		System.out.println("\ncallHttpClient ");
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		String url = "https://orbitalvar1.paymentech.net/authorize";
 		String str = "<?xml version=\"1.0\"?>  <Request>   <Profile>   <OrbitalConnectionUsername>TEVMS6578</OrbitalConnectionUsername>  <OrbitalConnectionPassword>Y3PQ8ZCG1</OrbitalConnectionPassword> <CustomerBin>000001</CustomerBin> <CustomerMerchantID>249476</CustomerMerchantID> <CustomerRefNum>4049</CustomerRefNum> <CustomerProfileAction>R</CustomerProfileAction> </Profile> </Request>";
@@ -57,8 +56,11 @@ public class RestTemplateTest {
 		post.setHeader("Document-type", "Request");
 		post.setHeader("Content-transfer-encoding", "text");
 		//HttpEntity
+		BufferedReader rd = null;
+		try {
 		StringEntity se = new StringEntity(str);
 		post.setEntity(se);
+		System.out.println("\ngoing to hit : " + url);
 		HttpResponse response = httpClient.execute(post);
 		
 		int responseCode = response.getStatusLine().getStatusCode();
@@ -66,8 +68,8 @@ public class RestTemplateTest {
 		System.out.println("\nSending 'POST' request to URL : " + url);
 		//System.out.println("Post parameters : " + postParams);
 		System.out.println("Response Code : " + responseCode);
-
-		BufferedReader rd = new BufferedReader(
+		
+		rd = new BufferedReader(
 	                new InputStreamReader(response.getEntity().getContent()));
 
 		StringBuffer result = new StringBuffer();
@@ -78,7 +80,33 @@ public class RestTemplateTest {
 
 		System.out.println(result.toString());
 		httpClient.close();
+		rd.close();
 		praseXML(result.toString());
+		} catch (IOException ie) {
+			
+		} finally {
+			
+			if (httpClient != null) {
+				try {
+					httpClient.close();
+					System.out.println("httpClient: " + httpClient);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (rd != null) {
+				try {
+					rd.close();
+					System.out.println("rd: " + rd);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
 	}
 
 
