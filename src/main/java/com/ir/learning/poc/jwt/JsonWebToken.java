@@ -3,10 +3,13 @@ package com.ir.learning.poc.jwt;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -24,7 +27,7 @@ public class JsonWebToken {
 		
 		validateJwtToken(jwtToken);
 		
-		parseAzureId(azureIdToken);
+		//parseAzureId(azureIdToken);
 	}
 
 	private static void parseAzureId(String azureIdToken) {
@@ -42,35 +45,33 @@ public class JsonWebToken {
 	}
 
 	private static void validateJwtToken(String jwtToken) {
-		// TODO Auto-generated method stub
-		String love = (String)Jwts.parser()
-			.setSigningKey(SECRET_TOKEN)
-			.parseClaimsJws(jwtToken).getBody().get("love");
-		System.out.println(love);
 		
-		 Claims claims = Jwts.parser()
-			.setSigningKey(SECRET_TOKEN)
-			.parseClaimsJws(jwtToken).getBody();
-		 System.out.println("expirtion: " + claims.getExpiration());
+		try {
+			Claims claims = Jwts.parser()
+					.setSigningKey(SECRET_TOKEN)
+					.parseClaimsJws(jwtToken).getBody();
+			System.out.println("Email Address: " + claims.get("emailAddress"));
+		} catch (ExpiredJwtException eje) {
+			eje.printStackTrace();
+		}
 		
 		
 	}
 
 	private static String generateJwtToken() {
 		Calendar currentDate = Calendar.getInstance();
-		currentDate.add(Calendar.MONTH, 1);
+		currentDate.add(Calendar.DATE, 7);
 		
 		String jwtToken = Jwts.builder()
-			.setSubject("My First jwt token")
-			.setIssuer("Ibrahim")
-			.setId("Ibra1234")
+			.setSubject("Warranty regsitration verification token")
+			.setIssuer("Armstrong Fluid Technologies")
+			.setId(UUID.randomUUID().toString())
+			.setIssuedAt(new Date())
 			.setExpiration(currentDate.getTime())
-			.claim("love", "Saba")
-			.claim("name", "Ibrahim")
+			.claim("emailAddress", "ibrahim.rashid@tcs.com")
 			.signWith(SignatureAlgorithm.HS256, SECRET_TOKEN)
 			.compact();
 		
-		//LOGGER.info("JWT Token: " + jwtToken);
 		System.out.println("JWT Token: " + jwtToken);
 		return jwtToken;
 	}
