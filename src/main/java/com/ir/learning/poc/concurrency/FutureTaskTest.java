@@ -33,7 +33,7 @@ public class FutureTaskTest {
 		}
 		
 		System.out.println("Got the response.... " + response);
-		
+		newCachedThreadPool.shutdown();
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {
