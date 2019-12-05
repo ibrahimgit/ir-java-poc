@@ -14,6 +14,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,6 +26,8 @@ import org.xml.sax.SAXException;
 
 public class RestTemplateTest {
 	
+	private static final Logger LOGGER = Logger.getLogger(RestTemplateTest.class);
+	
 	public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
 		
 		RestTemplate rt = new RestTemplate();
@@ -32,9 +35,9 @@ public class RestTemplateTest {
 		//String str = rt.getForObject("http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=907f14649dd7564b21d2d4a61d954414", String.class);
 		
 		
-		//System.out.println(str);
+		//LOGGER.info(str);
 		//System.setProperty("javax.net.ssl.trustStore", "C:\\Users\\Ibrahim Rashid\\Desktop\\keystore");
-		//System.out.println(rt.getForObject("https://api-xceleratedriver.prod.elementfleet.com/service/data/security/login", String.class));
+		//LOGGER.info(rt.getForObject("https://api-xceleratedriver.prod.elementfleet.com/service/data/security/login", String.class));
 		
 		//callPaymentProcessor();
 		
@@ -43,7 +46,7 @@ public class RestTemplateTest {
 	
 	
 	private static void callHttpClient() throws ParserConfigurationException, SAXException {
-		System.out.println("\ncallHttpClient ");
+		LOGGER.info("\ncallHttpClient ");
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		String url = "https://orbitalvar1.paymentech.net/authorize";
 		String str = "<?xml version=\"1.0\"?>  <Request>   <Profile>   <OrbitalConnectionUsername>TEVMS6578</OrbitalConnectionUsername>  <OrbitalConnectionPassword>Y3PQ8ZCG1</OrbitalConnectionPassword> <CustomerBin>000001</CustomerBin> <CustomerMerchantID>249476</CustomerMerchantID> <CustomerRefNum>4049</CustomerRefNum> <CustomerProfileAction>R</CustomerProfileAction> </Profile> </Request>";
@@ -60,14 +63,14 @@ public class RestTemplateTest {
 		try {
 		StringEntity se = new StringEntity(str);
 		post.setEntity(se);
-		System.out.println("\ngoing to hit : " + url);
+		LOGGER.info("\ngoing to hit : " + url);
 		HttpResponse response = httpClient.execute(post);
 		
 		int responseCode = response.getStatusLine().getStatusCode();
 
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		//System.out.println("Post parameters : " + postParams);
-		System.out.println("Response Code : " + responseCode);
+		LOGGER.info("\nSending 'POST' request to URL : " + url);
+		//LOGGER.info("Post parameters : " + postParams);
+		LOGGER.info("Response Code : " + responseCode);
 		
 		rd = new BufferedReader(
 	                new InputStreamReader(response.getEntity().getContent()));
@@ -78,7 +81,7 @@ public class RestTemplateTest {
 			result.append(line);
 		}
 
-		System.out.println(result.toString());
+		LOGGER.info(result.toString());
 		httpClient.close();
 		rd.close();
 		praseXML(result.toString());
@@ -89,7 +92,7 @@ public class RestTemplateTest {
 			if (httpClient != null) {
 				try {
 					httpClient.close();
-					System.out.println("httpClient: " + httpClient);
+					LOGGER.info("httpClient: " + httpClient);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -99,7 +102,7 @@ public class RestTemplateTest {
 			if (rd != null) {
 				try {
 					rd.close();
-					System.out.println("rd: " + rd);
+					LOGGER.info("rd: " + rd);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -130,7 +133,7 @@ public class RestTemplateTest {
         //restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         HttpEntity<String> request = new HttpEntity<String>(str, headers);
         ResponseEntity<String> response =restTemplate.exchange(url, HttpMethod.POST, request, String.class);
-        System.out.println(response.getBody());
+        LOGGER.info(response.getBody());
         praseXML(response.getBody());
         
         
@@ -150,7 +153,7 @@ public class RestTemplateTest {
 		 body = body.substring(idx+5);
 		}
 		
-		//System.out.println(body);
+		//LOGGER.info(body);
 		
 		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		InputSource src = new InputSource();
@@ -159,13 +162,13 @@ public class RestTemplateTest {
 		Document doc = builder.parse(src);
 		String CCExpireDate = null;
 		String profileProcStatus = null;
-		System.out.println(doc.getElementsByTagName("CCExpireDate").getLength());
+		LOGGER.info(doc.getElementsByTagName("CCExpireDate").getLength());
 		if(doc.getElementsByTagName("CCExpireDate").getLength() != 0)
 			CCExpireDate = doc.getElementsByTagName("CCExpireDate").item(0).getTextContent();
 		if (doc.getElementsByTagName("ProfileProcStatus").getLength() != 0)
 			profileProcStatus = doc.getElementsByTagName("ProfileProcStatus").item(0).getTextContent();
 		
-		System.out.println(CCExpireDate + " " + profileProcStatus);
+		LOGGER.info(CCExpireDate + " " + profileProcStatus);
 		
 		
 	}

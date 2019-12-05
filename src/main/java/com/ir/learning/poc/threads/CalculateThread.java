@@ -1,5 +1,8 @@
 package com.ir.learning.poc.threads;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class CalculateThread implements Runnable {
 	
 	int x;
@@ -13,7 +16,7 @@ public class CalculateThread implements Runnable {
 	@Override
 	public void run() {
 		
-		System.out.println("Sum: " + (x + y));
+		log.info("Sum: " + (x + y));
 
 	}
 

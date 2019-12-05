@@ -13,22 +13,26 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 public class JavaTest {
+	
+	private static final Logger LOGGER = Logger.getLogger(JavaTest.class);
 
 	public static void main(String[] args) throws ParseException {
 		
 		String controlBlock = "030T00000000018321181100000110";
 		String retryCode = controlBlock.substring(27, 29);
-		System.out.println("retryCOde: " + retryCode);
+		LOGGER.info("retryCOde: " + retryCode);
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-DD");
-		System.out.println("Date: " + dateFormat.parse("1987-01-20"));
+		LOGGER.info("Date: " + dateFormat.parse("1987-01-20"));
 		
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = df.parse("1987-12-29 00:00:00");
-		System.out.println(date);
+		LOGGER.info(date);
 		DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
-		System.out.println("Date: " + df1.format(date));
+		LOGGER.info("Date: " + df1.format(date));
 		// Week Year ("YYYY") should not be used for date formatting
 		/*
 		 * Few developers are aware of the difference between Y for "Week year" and y
@@ -45,15 +49,15 @@ public class JavaTest {
 		//E, dd MMM yyyy HH:mm:ss z Tue, 02 Jan 2018 18:07:59 IST
 		Long mobile = 919732827307l;
 		int length = (int) (Math.log10(mobile) + 1);
-		System.out.println(length);
+		LOGGER.info(length);
 		if (length > 10) {
 			Long sales24MobileNo = mobile % 10000000000L;
-			System.out.println("sales24MobileNo: " + sales24MobileNo);
+			LOGGER.info("sales24MobileNo: " + sales24MobileNo);
 		}
-		System.out.println("mobile: " + mobile);
+		LOGGER.info("mobile: " + mobile);
 		
 		LocalDateTime firstDayOfMonth = LocalDate.now().withDayOfMonth(1).atStartOfDay();
-		System.out.println(firstDayOfMonth);
+		LOGGER.info(firstDayOfMonth);
 		
 		
 		List<String> lists = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I");
@@ -61,7 +65,7 @@ public class JavaTest {
 		
 		int iteration = lists.size()/batchSize;
 		iteration = iteration + ((lists.size() % batchSize == 0) ? 0 : 1);
-		System.out.println("Iteration: " + iteration);
+		LOGGER.info("Iteration: " + iteration);
 		for(int i = 0; i < iteration; i++) {
 			int fromIndex = i*batchSize;
 			int toIndex = fromIndex + batchSize;
@@ -69,13 +73,13 @@ public class JavaTest {
 				toIndex = lists.size();
 			}
 			List<String> subLists = lists.subList(fromIndex, toIndex);
-			System.out.println(subLists);
+			LOGGER.info(subLists);
 		}
 		
 		//String sms = "Thanks for showing interest in SBI Card. To view your application 98765432100 in detail, click here www.google.com & use APPCODE  123456  to verify your data capture, or send this SMS to 9540765999  within next 3 hrs.";
 		String sms = "Thank you for choosing SBI card. In view of our discussion, please send this SMS to 9540765999 within next 3 hrs (APPCODE 123456)";
 		String appcode = getAppCodeFromSms(sms);
-		System.out.println("App code: " + appcode);
+		LOGGER.info("App code: " + appcode);
 		
 		LocalDateTime localDateTime = LocalDateTime.now();
 		System.out.printf("Local Date: %s ", localDateTime);
@@ -93,7 +97,7 @@ public class JavaTest {
 		
 		ZonedDateTime zonedDate = ZonedDateTime.now(ZoneId.of("UTC"));
 		
-		System.out.println("\nZone Date: " + zonedDate);
+		LOGGER.info("\nZone Date: " + zonedDate);
 		
 		
 	}

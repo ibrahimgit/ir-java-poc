@@ -14,9 +14,13 @@ import java.util.TreeMap;
 import java.util.Vector;
 import java.util.function.Function;
 
+import org.apache.log4j.Logger;
+
 import com.ir.learning.poc.api.TestInterface;
 
 public class POC {
+	
+	private static final Logger LOGGER = Logger.getLogger(POC.class);
 	
 	public static void foo() {
 		
@@ -28,7 +32,7 @@ public class POC {
 		
 		String s = "tets%%&&88";
 		
-		System.out.println(URLEncoder.encode(s, "UTF-8"));
+		LOGGER.info(URLEncoder.encode(s, "UTF-8"));
 		
 		
 		call();
@@ -38,37 +42,37 @@ public class POC {
 		map.put("A", 2);
 		
 		List<Integer> list1 = new ArrayList<>(map.values());
-		System.out.println(list1);
+		LOGGER.info(list1);
 		
 		Collections.reverse(list1);
 		
-		System.out.println(list1);
+		LOGGER.info(list1);
 		
 		Vector<Integer> vt = new Vector<Integer>();
 		vt.addAll(list1);
 		
-		System.out.println(vt);
+		LOGGER.info(vt);
 		
 		for (Integer innt: map.values()) {
 			
 		}
 		
-		System.out.println(map)
+		LOGGER.info(map)
 		;
 		
 		int million = 1_000_000_000; // java 7 features
 		
 		List<Integer> setInteger = Arrays.<Integer>asList(new Integer[]{1,2,3,4});
 		
-		setInteger.forEach( i -> System.out.println(i));
+		setInteger.forEach( i -> LOGGER.info(i));
 		
 		setInteger.forEach(System.out::println);
 		
 		Function<String, Integer> strToInt = String::length; // method references
 		Function<Integer, Integer> intToInt = intgr -> intgr + 5; // lambda expression
 		
-		System.out.println(strToInt.apply("Nobo"));
-		System.out.println(intToInt.apply(5));
+		LOGGER.info(strToInt.apply("Nobo"));
+		LOGGER.info(intToInt.apply(5));
 		
 		//TestInterface
 		
@@ -77,7 +81,7 @@ public class POC {
 		
 		int y = ~x;
 		
-		System.out.println("y: " + y);
+		LOGGER.info("y: " + y);
 		
 		TestInterface tif = str -> 5;
 		
@@ -90,8 +94,8 @@ public class POC {
 			}
 		};
 		
-		System.out.println("tif: " + tif.foo(""));
-		System.out.println("ti: " + ti.foo(""));
+		LOGGER.info("tif: " + tif.foo(""));
+		LOGGER.info("ti: " + ti.foo(""));
 		tif.doStuff(x);
 		
 		
@@ -101,11 +105,11 @@ public class POC {
 		POC poc = new POC();
 		
 		Animal an = new Animal();
-		System.out.println(String.class.getClassLoader());
-		System.out.println(ClassNotFoundException.class.getClassLoader());
-		System.out.println(POC.class.getClassLoader());
-		System.out.println(POC.class.getClassLoader().getParent());
-		System.out.println(POC.class.getClassLoader().getParent().getParent());
+		LOGGER.info(String.class.getClassLoader());
+		LOGGER.info(ClassNotFoundException.class.getClassLoader());
+		LOGGER.info(POC.class.getClassLoader());
+		LOGGER.info(POC.class.getClassLoader().getParent());
+		LOGGER.info(POC.class.getClassLoader().getParent().getParent());
 		try {
 			Class animalClass = Class.forName("com.poc.ir.Animal");
 			//Class animalClass1 = Class.forName("com.poc.ir.Animal", true, POC.class.getClassLoader().getParent()); // ext classs loader will not b able to find it
@@ -118,7 +122,7 @@ public class POC {
 			list.add("dds");
 			
 			for (String str : list) {
-				System.out.println("Vector: " + str);
+				LOGGER.info("Vector: " + str);
 				
 			}
 			
@@ -127,17 +131,17 @@ public class POC {
 			List<String> strList = new ArrayList<>();
 			strList.get(0);
 			//str.length();
-			System.out.println(cl.getParent());
+			LOGGER.info(cl.getParent());
 			
-			System.out.println(cl.toString());
+			LOGGER.info(cl.toString());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NullPointerException | IndexOutOfBoundsException | IllegalArgumentException e) { //multi-catch exception, java 7 feature
-			System.out.println("message: " + e.getMessage());
+			LOGGER.info("message: " + e.getMessage());
 		}
 		
-		System.out.println("callTryCatchPoc: " + poc.callTryCatchPoc());
+		LOGGER.info("callTryCatchPoc: " + poc.callTryCatchPoc());
 		
 		setInt.add(6);
 		setInt.add(7);
@@ -146,7 +150,7 @@ public class POC {
 		
 		h1.doStuff();
 		
-		System.out.println("Horse Cloning test: " + h1.clone());
+		LOGGER.info("Horse Cloning test: " + h1.clone());
 		
 		Horse.AHorse aah = h1.new AHorse(5);
 		
@@ -155,18 +159,18 @@ public class POC {
 		Iterator<Integer> it = setInt.iterator();
 		
 		while(it.hasNext()) {
-			System.out.println(it.next());
+			LOGGER.info(it.next());
 			it.remove();
 		}
 		
-		System.out.println(setInt);
+		LOGGER.info(setInt);
 	}
 
 	private static void call() {
 		String failures = "315|";
 		List<String> failureCodes = new ArrayList<>();
 		String[] errorArray = failures.split("\\|");
-		System.out.println(errorArray.length);
+		LOGGER.info(errorArray.length);
 		for(int i = 0; i < errorArray.length; i++) {
 			/*
 			 * Ideally it should be one database call
@@ -174,10 +178,10 @@ public class POC {
 			//Failure failure = new Failure();
 			//failure.setCode(errorArray[i]);
 			//failure.setDescription(paymentRepository.getFailureCode(errorArray[i], dialectCode, dspType));
-			System.out.println(errorArray[i]);
+			LOGGER.info(errorArray[i]);
 			failureCodes.add(errorArray[i]);
 		}
-		System.out.println(failureCodes.size());
+		LOGGER.info(failureCodes.size());
 	}
 
 

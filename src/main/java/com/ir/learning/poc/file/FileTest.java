@@ -7,21 +7,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
-import org.springframework.http.HttpStatus;
+import org.apache.http.HttpStatus;
 import org.springframework.util.FileCopyUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class FileTest {
 
 	public static void main(String[] args) throws IOException {
@@ -89,37 +90,37 @@ public class FileTest {
 		File targetFile = new File(filePath);
 		URL fileURL = new URL(fileURLString);
 		File destination = new File("test/pdf/spring-boot-reference-new.pdf");
-		System.out.println("starting.......");
+		log.info("starting.......");
 		FileUtils.copyURLToFile(fileURL, targetFile);
-		System.out.println("copy from url done....");
-		//FileUtils.copyToFile("dsdssaadsdas".getBytes(), destination);
+		log.info("copy from url done....");
+		// FileUtils.copyToFile("dsdssaadsdas".getBytes(), destination);
 		FileCopyUtils.copy(targetFile, destination);
-		System.out.println("copy from file to file done");
+		log.info("copy from file to file done");
 		
 		HttpURLConnection connection = (HttpURLConnection) fileURL.openConnection();
-		if(connection.getResponseCode() == HttpStatus.OK.value()) {
+		if(connection.getResponseCode() == HttpStatus.SC_OK) {
 			Map<String, List<String>> headerFields = connection.getHeaderFields();
-			System.out.println(headerFields);
+			log.info("headers: {}", headerFields);
 			String headerField = connection.getHeaderField("Content-Disposition");
-			System.out.println(headerField);
+			log.info(headerField);
 		}
 		
 		
 		
 		File testDirectory = new File("F:\\My Workspace\\ir-java-poc");
-		System.out.println("This is a directory: " + testDirectory.isDirectory());
+		log.info("This is a directory: " + testDirectory.isDirectory());
 		
 		File testFile = new File("test/ibrahim/abc");
 		
 		
 		if(!testFile.exists()) {
-			System.out.println("doesn't exist");
+			log.info("doesn't exist");
 			if(testFile.isDirectory()) {
-				System.out.println("It's directory path");
+				log.info("It's directory path");
 			} else {
-				System.out.println("It's not directory path");
+				log.info("It's not directory path");
 				boolean mkdir = testFile.mkdir();
-				System.out.println("Directory created: " + mkdir);
+				log.info("Directory created: " + mkdir);
 			}
 				
 		}
@@ -130,14 +131,14 @@ public class FileTest {
 
 	private static void getDeviceID() throws IOException {
 
-		System.out.println("Started");
+		log.info("Started");
 		File file = new File("deviceid.txt");
 
 		// if file doesnt exists, then create it
 		if (!file.exists()) {
-			System.out.println("File doesn't exists");
+			log.info("File doesn't exists");
 			file.createNewFile();
-			System.out.println("created");
+			log.info("created");
 		}
 		
 		List<String> uuids = new ArrayList<>();
@@ -158,8 +159,8 @@ public class FileTest {
 				}
 			}
 		}
-		System.out.println("Count: " + count);
-		System.out.println("Done");
+		log.info("Count: " + count);
+		log.info("Done");
 		bw.close();
 	
 		
@@ -170,14 +171,14 @@ public class FileTest {
 
 	private static void getbrowsertype() throws IOException {
 
-		System.out.println("Started");
+		log.info("Started");
 		File file = new File("devietype.txt");
 
 		// if file doesnt exists, then create it
 		if (!file.exists()) {
-			System.out.println("File doesn't exists");
+			log.info("File doesn't exists");
 			file.createNewFile();
-			System.out.println("created");
+			log.info("created");
 		}
 		
 		FileWriter fw = new FileWriter(file.getAbsoluteFile());
@@ -188,21 +189,21 @@ public class FileTest {
 			bw.write(deviceType);
 			bw.newLine();
 		}
-		System.out.println("Done");
+		log.info("Done");
 		bw.close();
 	
 		
 	}
 
 	private static void getUidPwd() throws IOException {
-		System.out.println("Started");
+		log.info("Started");
 		File file = new File("username1.txt");
 
 		// if file doesnt exists, then create it
 		if (!file.exists()) {
-			System.out.println("File doesn't exists");
+			log.info("File doesn't exists");
 			file.createNewFile();
-			System.out.println("created");
+			log.info("created");
 		}
 		
 		
@@ -235,7 +236,7 @@ public class FileTest {
 			bw.write(uidpwd);
 			bw.newLine();
 		}
-		System.out.println("Done");
+		log.info("Done");
 		bw.close();
 	}
 

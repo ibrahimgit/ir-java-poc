@@ -9,7 +9,7 @@
 	<description>This project is for doing POC </description>
 
 	<properties>
-		<slf4j.version>1.7.13</slf4j.version>
+		<slf4j.version>1.7.29</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
 		<jackson.version>2.10.1</jackson.version>
 		<json.version>20140107</json.version>
@@ -33,17 +33,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
 		</dependency>
 
 		<dependency>
@@ -53,18 +48,18 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.slf4j</groupId>
+			<groupId>org.slf4j</groupId> <!-- This jar will route all commons logging logs to log4j -->
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
+			<groupId>org.slf4j</groupId> <!-- This jar will route all slf4j logs to log4j -->
+			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
 
-		<dependency>
+		<dependency> <!-- This is the main binding logging framework -->
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
@@ -75,7 +70,8 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-		<!-- Below dependency was added for serializing and de-serializing new DateTime api -->
+		<!-- Below dependency was added for serializing and de-serializing new 
+			DateTime api -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
@@ -120,7 +116,7 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.4</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>

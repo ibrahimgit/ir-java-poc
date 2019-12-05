@@ -1,16 +1,16 @@
 package com.ir.learning.poc.designpattern.core;
 
 
-import org.springframework.stereotype.Service;
-
 import com.ir.learning.poc.designpattern.Writer;
 
-@Service
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class BallPenWriter implements Writer {
 
 	@Override
 	public void write(String text) {
-		System.out.println("Writing with ball pen: " + text);
+		log.info("Writing with ball pen: {}", text);
 
 	}
 

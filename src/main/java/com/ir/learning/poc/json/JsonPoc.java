@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -15,6 +16,7 @@ import com.ir.learning.poc.domainmodel.Teacher;
 
 public class JsonPoc {
 	
+	private static final Logger LOGGER = Logger.getLogger(JsonPoc.class);
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -24,7 +26,7 @@ public class JsonPoc {
 		Student student = new Student("Ibrahim", 30, "Address", 20000.00, 1234567, subject);
 		Teacher teacher = new Teacher("Ibu", "Physics", 32, student);
 		String jsonString = om.writerWithDefaultPrettyPrinter().writeValueAsString(teacher);
-		System.out.println("jsonString: " + jsonString);
+		LOGGER.info("jsonString: " + jsonString);
 		
 		Teacher tchr = om.readValue(jsonString, Teacher.class);
 		
@@ -32,26 +34,26 @@ public class JsonPoc {
 		
 		JSONObject jsonObject = new JSONObject(jsonString);
 		
-		System.out.println("Name: " + tchr.getName());
-		System.out.println("Name from JSONObject: " + jsonObject.getString("name"));
-		//System.out.println("Name: " + std.getName());
+		LOGGER.info("Name: " + tchr.getName());
+		LOGGER.info("Name from JSONObject: " + jsonObject.getString("name"));
+		//LOGGER.info("Name: " + std.getName());
 		//URI.parse(BASE_URL).
 		
 		JSONObject jsonObjectStudent = jsonObject.getJSONObject("student");
 		//jsonObjectStudent.toJSONArray(arg0);
 		//Teacher tchr1 =  (Teacher)JSONObject.stringToValue(jsonString); // not working
-		//System.out.println(tchr1.getAge());
+		//LOGGER.info(tchr1.getAge());
 		
-		System.out.println(jsonObjectStudent.toString());
+		LOGGER.info(jsonObjectStudent.toString());
 		
 		Student student1 = om.readValue(jsonObjectStudent.toString(), Student.class);
 		
-		System.out.println("Name: " + student1.getName());
+		LOGGER.info("Name: " + student1.getName());
 		
 		JsonPoc jp = new JsonPoc();
 		
 		Student std = jp.getData(Student.class);
-		System.out.println(std.getName());
+		LOGGER.info(std.getName());
 		
 		
 		
@@ -63,19 +65,19 @@ public class JsonPoc {
 		Student student = new Student("Rashid", 32, "Address", 20000.00, 1234567, subject);
 		Teacher teacher = new Teacher("Ibu", "Physics", 32, student);
 		String jsonString = om.writerWithDefaultPrettyPrinter().writeValueAsString(teacher);
-		System.out.println(jsonString);
+		LOGGER.info(jsonString);
 		JSONObject jsonObject = new JSONObject(jsonString);
 		Iterator<String> keys = jsonObject.keys();
 		while(keys.hasNext()) {
 			String str = keys.next();
-			System.out.println(str);
-			System.out.println(jsonObject.get(str));
+			LOGGER.info(str);
+			LOGGER.info(jsonObject.get(str));
 		}
 		
 		Set<String> keySet = jsonObject.keySet();
 		for(String key : keySet) {
-			System.out.println(key);
-			System.out.println(jsonObject.get(key));
+			LOGGER.info(key);
+			LOGGER.info(jsonObject.get(key));
 		}
 		
 		JSONObject jsonObjectStudent = jsonObject.getJSONObject("student");

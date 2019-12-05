@@ -1,5 +1,8 @@
 package com.ir.learning.poc.threads;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ThreadTesting {
 
 	public static void main(String[] args) {
@@ -13,9 +16,9 @@ public class ThreadTesting {
 		t1.start();
 		t2.start();
 		
-		System.out.println("Alive? " + t3.isAlive());
+		log.info("Alive? " + t3.isAlive());
 		
-		System.out.println("t3: " + t3);
+		log.info("t3: " + t3);
 		
 		
 

@@ -2,11 +2,14 @@ package com.ir.learning.poc.designpattern.core;
 
 import com.ir.learning.poc.designpattern.Workshop;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Assemble implements Workshop {
 
 	@Override
 	public void work() {
-		System.out.println("Assemble");
+		log.info("Assemble");
 	}
 
 }

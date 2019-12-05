@@ -7,8 +7,11 @@ import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.log4j.Logger;
+
 public class LearnHmac {
 	
+	private static final Logger LOGGER = Logger.getLogger(LearnHmac.class);
 	
 	private static final String SECRET_KEY = "fdgfd4453dfccgfeqwwrryughvbcvxsdaagnrtererfhklmy6756465vg";
 	
@@ -29,7 +32,7 @@ public class LearnHmac {
 		String message = "I love Saba";
 		byte[] messageBytes = mac.doFinal(message.getBytes());
 		String encodedMessage = Base64.getEncoder().encodeToString(messageBytes);
-		System.out.println("Encoded Message: " + encodedMessage);
+		LOGGER.info("Encoded Message: " + encodedMessage);
 
 	}
 

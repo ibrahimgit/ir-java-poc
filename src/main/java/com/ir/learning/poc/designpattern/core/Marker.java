@@ -1,12 +1,12 @@
 package com.ir.learning.poc.designpattern.core;
 
-import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
-@Service
+@Slf4j
 public class Marker {
 	
 	public void mark(String text) {
-		System.out.println("Writing with marker: " + text);
+		log.info("Writing with marker: {}", text);
 	}
 
 }

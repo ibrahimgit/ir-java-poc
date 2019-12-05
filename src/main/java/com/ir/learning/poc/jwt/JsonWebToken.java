@@ -38,8 +38,8 @@ public class JsonWebToken {
 		String header = new String(urlDecoder.decode(parseToken[0]));
 		String payLoad = new String(urlDecoder.decode(parseToken[1]));
 		
-		System.out.println("header: " + header);
-		System.out.println("header: " + payLoad);
+		LOGGER.info("header: " + header);
+		LOGGER.info("header: " + payLoad);
 		
 		
 	}
@@ -50,7 +50,7 @@ public class JsonWebToken {
 			Claims claims = Jwts.parser()
 					.setSigningKey(SECRET_TOKEN)
 					.parseClaimsJws(jwtToken).getBody();
-			System.out.println("Email Address: " + claims.get("emailAddress"));
+			LOGGER.info("Email Address: " + claims.get("emailAddress"));
 		} catch (ExpiredJwtException eje) {
 			eje.printStackTrace();
 		}
@@ -72,7 +72,7 @@ public class JsonWebToken {
 			.signWith(SignatureAlgorithm.HS256, SECRET_TOKEN)
 			.compact();
 		
-		System.out.println("JWT Token: " + jwtToken);
+		LOGGER.info("JWT Token: " + jwtToken);
 		return jwtToken;
 	}
 

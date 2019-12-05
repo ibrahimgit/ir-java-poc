@@ -8,11 +8,12 @@ import org.springframework.web.client.RestTemplate;
 
 import com.ir.learning.poc.domainmodel.Employee;
 
+import lombok.extern.slf4j.Slf4j;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
-import rx.Subscription;
 
+@Slf4j
 public class LearnReactive {
 	
 	
@@ -24,7 +25,7 @@ public class LearnReactive {
 		// Observable just register any data stream stream. The source will output the data only if a subscriber/observer is connected
 		Observable<Employee> dataStream = getObservable();
 		
-		System.out.println("observable set");
+		log.info("observable set");
 		
 		//subscribeBySubscriber(dataStream);
 		subscribeByObserver(dataStream);
@@ -35,7 +36,7 @@ public class LearnReactive {
 //			} catch (InterruptedException e1) {
 //				System.err.println(e1);
 //			}
-//			System.out.println(val);
+//			log.info(val);
 //		});
 		
 		
@@ -58,12 +59,12 @@ public class LearnReactive {
 	}
 	
 	private static void subscribeBySubscriber(Observable<Employee> dataStream) {
-		System.out.println("subscribing a blocking subscriber");
+		log.info("subscribing a blocking subscriber");
 		dataStream.subscribe(new Subscriber<Employee>() {
 
 			@Override
 			public void onCompleted() {
-				System.out.println("done");
+				log.info("done");
 			}
 
 			@Override
@@ -73,17 +74,17 @@ public class LearnReactive {
 
 			@Override
 			public void onNext(Employee emp) {
-				System.out.println(emp);
+				log.info(emp.toString());
 				
 			}
 			
 		});
-		System.out.println("Observer1 set");
+		log.info("Observer1 set");
 		dataStream.subscribe(new Subscriber<Employee>() {
 
 			@Override
 			public void onCompleted() {
-				System.out.println("completed");
+				log.info("completed");
 			}
 
 			@Override
@@ -93,21 +94,21 @@ public class LearnReactive {
 
 			@Override
 			public void onNext(Employee emp) {
-				System.out.println(emp.getName());
+				log.info(emp.getName());
 				
 			}
 			
 		});
-		System.out.println("Observer2 set");
+		log.info("Observer2 set");
 	}
 	
 	private static void subscribeByObserver(Observable<Employee> dataStream) {
-		System.out.println("subscribing a blocking observer");
+		log.info("subscribing a blocking observer");
 		dataStream.subscribe(new Observer<Employee>() {
 
 			@Override
 			public void onCompleted() {
-				System.out.println("done");
+				log.info("done");
 			}
 
 			@Override
@@ -117,20 +118,20 @@ public class LearnReactive {
 
 			@Override
 			public void onNext(Employee emp) {
-				System.out.println(emp);
+				log.info("Emp: {}", emp);
 				
 			}
 			
 		});
-		System.out.println("Observer1 set");
+		log.info("Observer1 set");
 	}
 
 	private static void subscribeByAction(Observable<Employee> dataStream) {
-		System.out.println("subscribing a blocking observer by action");
-		dataStream.subscribe(emp -> {System.out.println(emp);}, e -> {System.err.println(e);}, () -> {System.out.println("done");});
-//		System.out.println("Observer1 set");
-//		dataStream.subscribe(emp1 -> {System.out.println(emp1.getName());}, e -> {}, () -> {System.out.println("done");});
-//		System.out.println("Observer2 set");
+		log.info("subscribing a blocking observer by action");
+		dataStream.subscribe(emp -> {log.info(emp.toString());}, e -> {System.err.println(e);}, () -> {log.info("done");});
+//		log.info("Observer1 set");
+//		dataStream.subscribe(emp1 -> {log.info(emp1.getName());}, e -> {}, () -> {log.info("done");});
+//		log.info("Observer2 set");
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.ir.learning.poc.security;
 
 import java.security.InvalidKeyException;
-import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
@@ -15,8 +14,10 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class LearnCipher2 {
 	
 	private static final String SECRET_KEY = "123098xyzabc4567";
@@ -29,19 +30,19 @@ public class LearnCipher2 {
 		String message = "I want my Saba back";
 		byte[] encryptedMessage = algo.encrypt(message.getBytes());
 		String encryptedEncodedMessage = Base64.getEncoder().encodeToString(encryptedMessage);
-		System.out.println("Encrypted message: " + new String(encryptedMessage));
-		System.out.println("Encrypted and Encoded message: " + encryptedEncodedMessage);
+		log.info("Encrypted message: " + new String(encryptedMessage));
+		log.info("Encrypted and Encoded message: " + encryptedEncodedMessage);
 		
 		//byte[] decodedMessage = Base64.getDecoder().decode(encryptedEncodedMessage.getBytes());
 		byte[] dycryptedMessage = algo.decrypt(encryptedMessage);
-		System.out.println("Dycrypted message: " + new String(dycryptedMessage));
+		log.info("Dycrypted message: " + new String(dycryptedMessage));
 		
 		
 		
 		RSAAlgo rsaAlgo = new RSAAlgo();
 		encryptedMessage = rsaAlgo.encrpytMessage(message.getBytes());
 		dycryptedMessage = rsaAlgo.decrpytMessage(encryptedMessage);
-		//System.out.println("RSA Dycrypted message: " + new String(dycryptedMessage));
+		//log.info("RSA Dycrypted message: " + new String(dycryptedMessage));
 		
 		
 	}
@@ -60,7 +61,7 @@ public class LearnCipher2 {
 				KeyGenerator keyGen = KeyGenerator.getInstance(ALGO);
 				keyGen.init(128);
 				SecretKey secretKey = keyGen.generateKey();
-				System.out.println("secret key: " + new String(secretKey.getEncoded()));
+				log.info("secret key: " + new String(secretKey.getEncoded()));
 				cipherEncrypt = Cipher.getInstance(ALGO);
 				cipherEncrypt.init(Cipher.ENCRYPT_MODE, secretKey);
 				cipherDecrypt = Cipher.getInstance(ALGO);

@@ -1,5 +1,8 @@
 package com.ir.learning.poc.designpattern.creational;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Singleton {
 	
 	// private static final Singleton instance = new Singleton() // eager initialization
@@ -43,7 +46,7 @@ public class Singleton {
 //	}
 	
 	public static Singleton getInstance() {
-		System.out.println("fetching singleton instance");
+		log.info("fetching singleton instance");
 		return InnerSingleton.instance; //This is the best approach
 	}
 	
@@ -51,7 +54,7 @@ public class Singleton {
 	private static class InnerSingleton { //Bill Pugh Singleton Implementation
 		private static final Singleton instance = new Singleton(); 
 		static {
-			System.out.println("Initializing the inner class");
+			log.info("Initializing the inner class");
 		}
 	}
 

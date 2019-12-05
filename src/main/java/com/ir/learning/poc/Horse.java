@@ -2,12 +2,16 @@ package com.ir.learning.poc;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 public class Horse extends Animal implements Cloneable{
+	
+	private static final Logger LOGGER = Logger.getLogger(Horse.class);
 	
 	int y;
 	
 	public static void doStuff(){
-		System.out.println("do Stuff in Horse");
+		LOGGER.info("do Stuff in Horse");
 	}
 	
 	@Override

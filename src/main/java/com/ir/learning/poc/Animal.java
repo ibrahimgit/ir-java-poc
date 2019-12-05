@@ -1,10 +1,11 @@
 package com.ir.learning.poc;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Animal {
 	
 	private int y = 10;
@@ -13,15 +14,15 @@ public class Animal {
 	
 	static {
 		
-		System.out.println("Animal static block x: " + x);
+		log.info("Animal static block x: " + x);
 		x = 16;
-		System.out.println("Animal static block x: " + x);
+		log.info("Animal static block x: " + x);
 		//listStr.get(0);
 		//throw new NullPointerException();
 	}
 	
 	public Animal() {
-		System.out.println("Animal Contrutor y : " + y);
+		log.info("Animal Contrutor y : " + y);
 	}
 	
 	public Number foo() throws IndexOutOfBoundsException {
@@ -29,7 +30,7 @@ public class Animal {
 	}
 	
 	public static void doStuff() {
-		System.out.println("Animal doStuff");
+		log.info("Animal doStuff");
 	}
 
 }
