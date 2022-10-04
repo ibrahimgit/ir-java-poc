@@ -11,7 +11,7 @@
 	<properties>
 		<slf4j.version>1.7.29</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
-		<jackson.version>2.10.1</jackson.version>
+		<jackson.version>2.12.6.1</jackson.version>
 		<json.version>20140107</json.version>
 		<commons-codec.version>1.9</commons-codec.version>
 		<maven.compiler.target>1.10</maven.compiler.target> <!-- if not set, maven will use the default java version 5 -->
